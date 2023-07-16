@@ -4,6 +4,7 @@
 @import './styles/revo-grid.dark.material.scss';
 @import './styles/revo-grid.dark.compact.scss';
 @import './styles/revo-grid.compact.scss';
+@import './styles/revo-grid.custom-properties.scss';
 
 revo-grid {
   display: block;
@@ -15,7 +16,8 @@ revo-grid {
   @include noSelect;
 
   &.column-draggable.column-drag-start {
-    &, * {
+    &,
+    * {
       &:hover {
         cursor: grabbing;
       }

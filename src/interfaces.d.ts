@@ -404,7 +404,7 @@ export declare namespace ThemeSpace {
     rowSize: number;
   };
 
-  type Theme = 'default' | 'material' | 'compact' | 'darkMaterial' | 'darkCompact';
+  type Theme = 'default' | 'material' | 'compact' | 'darkMaterial' | 'darkCompact' | 'customProperties';
 }
 
 export type DimensionStores = {

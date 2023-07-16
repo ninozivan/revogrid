@@ -1,0 +1,178 @@
+revo-grid[theme='customProperties'] {
+  $header-size: var(--rg-header-height, 30px);
+  $header-bg: var(--rg-header-bg-color, #f8f9fa);
+  $header-color: var(--rg-header-color, #61656a);
+  $header-border-color: var(--rg-header-border-color, #c0c0c0);
+  $default-row-size: var(--rg-default-row-height, 27px);
+  $cell-border-color: var(--rg-cell-border-color, #e2e3e3);
+
+  $focused-cells-bg-color: var(--rg-focused-cells-bg-color, #7586b9);
+  $focused-cells-color: var(--rg-focused-cells-color, #e9eaed);
+  $focused-cells-border-color: var(--rg-focused-cells-border-color, #c1cffc);
+
+  font-size: var(--rg-font-size, 12px);
+  $font-color: var(--rg-font-color, #61656a);
+  font-family: var(--rg-font-family, Helvetica, Arial, Sans-Serif, serif);
+
+  $shadow-left: -1px 0 0 0 $header-border-color;
+  $shadow-right: -1px 0 0 0 $header-border-color inset;
+  $shadow-bottom: 0 -1px 0 0 $header-border-color inset;
+  $shadow-top: 0 -1px 0 0 $header-border-color;
+
+  $cell-shadow-left: -1px 0 0 0 $cell-border-color;
+  $cell-shadow-right: -1px 0 0 0 $cell-border-color inset;
+  $cell-shadow-bottom: 0 -1px 0 0 $cell-border-color inset;
+  $cell-shadow-top: 0 -1px 0 0 $cell-border-color;
+
+  revogr-header {
+    text-align: var(--rg-text-align, center);
+    font-weight: var(--rg-header-font-weight, 600);
+    line-height: $header-size;
+    background-color: $header-bg;
+
+    .group-rgRow {
+      box-shadow: none;
+    }
+    .header-rgRow,
+    .group-rgRow {
+      text-transform: var(--rg-header-or-group-text-transform, uppercase);
+      font-size: var(--rg-header-or-group-font-size, 12px);
+      color: $header-color;
+    }
+    .header-rgRow {
+      height: $header-size;
+      box-shadow: $shadow-bottom;
+
+      &.group {
+        box-shadow: $cell-shadow-bottom;
+      }
+
+      &:not(.group) {
+        box-shadow: $cell-shadow-top, $cell-shadow-bottom;
+      }
+    }
+
+    .rgHeaderCell {
+      box-shadow: $shadow-left, $shadow-right, $shadow-top, $shadow-bottom;
+      padding: var(--rg-header-cell-padding, 0 15px);
+      text-overflow: var(--rg-header-cell-text-overflow, ellipsis);
+
+      &.sortable {
+        &:hover {
+          background: $focused-cells-bg-color;
+          color: $focused-cells-color;
+        }
+      }
+
+      &.focused-cell {
+        background: $focused-cells-bg-color;
+        color: $focused-cells-color;
+        border-color: $focused-cells-border-color;
+
+        &:hover {
+          background: $focused-cells-bg-color;
+          color: $focused-cells-color;
+        }
+      }
+    }
+  }
+
+  .rowHeaders {
+    background-color: $header-bg;
+    revogr-data .rgCell {
+      color: $header-color;
+      box-shadow: $cell-shadow-bottom, $shadow-right;
+    }
+
+    revogr-header {
+      box-shadow: $shadow-bottom, $shadow-right;
+    }
+  }
+
+  revogr-viewport-scroll {
+    &.colPinStart {
+      box-shadow: -1px 0 0 $cell-border-color inset;
+      border-right: 2px solid var(--rg-start-column-pinned-border-right, transparent);
+
+      revogr-data .rgRow .rgCell:last-child {
+        $cell-shadow-cell: 0 -1px 0 0 $cell-border-color inset, -1px 0 0 0 $header-border-color inset;
+        box-shadow: $cell-shadow-cell;
+      }
+      .footer-wrapper revogr-data .rgRow:first-child .rgCell {
+        $cell-shadow-cell: 0 1px 0 0 $header-border-color inset, -1px 0 0 0 $header-border-color inset;
+        box-shadow: $cell-shadow-cell;
+      }
+    }
+
+    &.colPinEnd {
+      box-shadow: -1px 0 0 $cell-border-color;
+      border-left: 2px solid var(--rg-end-column-pinned-border-left, transparent);
+
+      &,
+      revogr-header {
+        box-shadow: 1px 0 0 $header-border-color inset;
+      }
+    }
+  }
+
+  .footer-wrapper revogr-data .rgRow:first-child .rgCell {
+    box-shadow: $cell-shadow-top, $cell-shadow-right, $cell-shadow-bottom;
+  }
+
+  revogr-data {
+    text-align: var(--rg-text-align, center);
+    color: $font-color;
+
+    .rgRow {
+      line-height: $default-row-size;
+      box-shadow: $cell-shadow-bottom, $cell-shadow-right;
+
+      &.focused-rgRow {
+        background-color: $focused-cells-bg-color;
+        color: $focused-cells-color;
+      }
+
+      &:nth-child(even):not(.focused-rgRow) {
+        background-color: var(--rg-even-rows-bg-color, $focused-cells-bg-color);
+        color: var(--rg-even-rows-color, $focused-cells-color);
+      }
+    }
+    .rgCell {
+      box-shadow: $cell-shadow-bottom, $cell-shadow-right;
+      padding: var(--rg-data-cell-padding, 0 15px);
+
+      &.disabled {
+        background-color: $cell-shadow-bottom, $cell-shadow-right;
+      }
+    }
+
+    .revo-draggable {
+      > .revo-drag-icon {
+        background-color: var(--rg-draggable-icon-color, $font-color);
+      }
+
+      &:hover {
+        > .revo-drag-icon {
+          background-color: var(--rg-draggable-icon-hover-color, $font-color);
+        }
+      }
+    }
+  }
+
+  revo-dropdown {
+    .rv-dr-root {
+      padding: var(--rg-dropdown-padding, 0px 9px);
+    }
+  }
+
+  revogr-overlay-selection {
+    revogr-edit {
+      background-color: var(--rg-edit-bg-color, #fff);
+      color: $font-color;
+
+      input {
+        background-color: var(--rg-edit-bg-color, #fff);
+      }
+    }
+  }
+}

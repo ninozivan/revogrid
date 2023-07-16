@@ -2,9 +2,10 @@ import { ThemeSpace } from '../interfaces';
 import ThemeCompact from './theme.compact';
 import ThemeDefault from './theme.default';
 import ThemeMaterial from './theme.material';
+import ThemeCustomProperties from './theme.custom-properties';
 
 export const DEFAULT_THEME = 'default';
-export const allowedThemes: ThemeSpace.Theme[] = [DEFAULT_THEME, 'material', 'compact', 'darkMaterial', 'darkCompact'];
+export const allowedThemes: ThemeSpace.Theme[] = [DEFAULT_THEME, 'material', 'compact', 'darkMaterial', 'darkCompact', 'customProperties'];
 export default class ThemeService {
   private currentTheme: ThemeSpace.ThemePackage;
   private customRowSize: number = 0;
@@ -22,8 +23,24 @@ export default class ThemeService {
   }
 
   constructor(cfg: ThemeSpace.ThemeConfig) {
-    this.customRowSize = cfg.rowSize;
+    this.customRowSize = this.getCustomRowSize(cfg);
     this.register('default');
+  }
+
+  getCustomRowSize(cfg: ThemeSpace.ThemeConfig) {
+    const revoGridEl = document.querySelector('revo-grid[theme="customProperties"]');
+
+    if (!revoGridEl) {
+      return cfg.rowSize;
+    }
+
+    const defaultRowSizeCssCustomProperty: string = getComputedStyle(revoGridEl).getPropertyValue('--rg-default-row-size');
+
+    if (defaultRowSizeCssCustomProperty) {
+      return Number(defaultRowSizeCssCustomProperty.replace('px', '')) ?? this.currentTheme.defaultRowSize;
+    } else {
+      return cfg.rowSize;
+    }
   }
 
   register(theme: ThemeSpace.Theme) {
@@ -36,6 +53,9 @@ export default class ThemeService {
       case 'compact':
       case 'darkCompact':
         this.currentTheme = new ThemeCompact();
+        break;
+      case 'customProperties':
+        this.currentTheme = new ThemeCustomProperties();
         break;
       default:
         this.currentTheme = new ThemeDefault();
