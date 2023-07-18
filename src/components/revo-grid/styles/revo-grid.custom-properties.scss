@@ -32,6 +32,7 @@ revo-grid[theme='customProperties'] {
 
     .group-rgRow {
       box-shadow: none;
+      background-color: var(--rg-header-group-bg-color, $header-bg);
     }
     .header-rgRow,
     .group-rgRow {
@@ -72,6 +73,18 @@ revo-grid[theme='customProperties'] {
         &:hover {
           background: $focused-cells-bg-color;
           color: $focused-cells-color;
+        }
+      }
+
+      &.active {
+        .resizable {
+          background-color: var(--rg-header-cell-resizable-active-bg-color, deepskyblue);
+        }
+      }
+
+      .resizable {
+        &:hover {
+          background-color: var(--rg-header-cell-resizable-hover-bg-color, deepskyblue);
         }
       }
     }
@@ -126,6 +139,7 @@ revo-grid[theme='customProperties'] {
     .rgRow {
       line-height: $default-row-size;
       box-shadow: $cell-shadow-bottom, $cell-shadow-right;
+      background-color: var(--rg-rows-bg-color, none);
 
       &.focused-rgRow {
         background-color: $focused-cells-bg-color;
