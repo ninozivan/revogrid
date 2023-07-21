@@ -1,4 +1,25 @@
 revo-grid[theme='customProperties'] {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  .viewports {
+    max-height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .main-viewport {
+    flex-grow: 1;
+    height: 0;
+    display: flex;
+    flex-direction: row;
+  }
+
   $header-size: var(--rg-header-height, 30px);
   $header-bg: var(--rg-header-bg-color, #f8f9fa);
   $header-color: var(--rg-header-color, #61656a);
